@@ -16,7 +16,6 @@ cd moonbix-bot
 ```
 **Submit your Query Token**
 ```
-```
 nano data.txt
 ```
 ```
@@ -38,7 +37,6 @@ python3 run.py
 CTRL + AD
 
 ### Go Back to Screen
-```
 ```
 screen -r moonbix
 ```
