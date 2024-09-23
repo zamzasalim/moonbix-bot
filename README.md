@@ -51,38 +51,6 @@ python3 run.py
 
 ## Ambil Query Token : Inspect Bot Moonbix - Application - __telegram__initParams - Copy Query dibawah
 
-
-## Termux & WIndows
-```
-pkg upgrade && pkg update
-```
-```
-termux-setup-storage
-```
-```
-pkg install python
-```
-```
-pkg install git
-```
-```
-git clone https://github.com/zamzasalim/moonbix-bot.git
-```
-```
-cd moonbix-bot
-```
-```
-pip install -r requirements.txt
-```
-**Submit your Query Token**
-```
-nano data.txt
-```
-**Kemudian save `CTRL+XY dan Enter`**
-### Run bot
-```
-python run.py
-```
 **Troubleshoot for Screen**
 
 ### Close Screen 
