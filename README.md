@@ -22,10 +22,12 @@ nano data.txt
 
 ### Run Bot
 ```
+```
 screen -S moonbix
 ```
 ```
 python3 run.py
+```
 ```
 **Kalo dah jalan langsung CTRL+AD**
 
