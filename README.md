@@ -41,3 +41,10 @@ CTRL + AD
 screen -r moonbix
 ```
 
+**For Windows Click File**
+ ```moonbix.bat```
+
+
+***DONASI***
+
+kalo mau bayarin kopi https://trakteer.id/Winsnipsupport/tip
