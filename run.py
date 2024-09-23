@@ -158,12 +158,13 @@ if __name__ == '__main__':
 
     threads = []
     
-    for index, token in enumerate(tokens):
-        proxy = proxies[index % len(proxies)]  # Cycle through proxies
-        thread = threading.Thread(target=run_account, args=(index + 1, token, proxy))
-        thread.start()
-        threads.append(thread)
-        time.sleep(1)  # Adding a slight delay to stagger thread starts
+    log("Starting", level="INFO")
+
+    for index, token in enumerate(tokens, start=1):
+        proxy = proxies[(index - 1) % len(proxies)] if proxies else None
+        t = threading.Thread(target=run_account, args=(index, token, proxy))
+        threads.append(t)
+        t.start()  # Adding a slight delay to stagger thread starts
 
     for thread in threads:
         thread.join()  # Wait for all threads to finish
