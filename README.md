@@ -13,7 +13,6 @@ bash <(curl -s https://data.zamzasalim.xyz/file/uploads/moonbix.sh)
 ```
 cd moonbix-bot
 ```
-```
 
 **Submit your Query Token**
 
