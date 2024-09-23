@@ -7,7 +7,7 @@
 </p>
 
 # MOONBIX BOT
-
+**INSTALL BOT**
 ```
 bash <(curl -s https://data.zamzasalim.xyz/file/uploads/moonbix.sh)
 ```
