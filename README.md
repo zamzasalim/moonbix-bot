@@ -16,7 +16,9 @@ cd moonbix-bot
 ```
 **Submit your Query Token**
 ```
+```
 nano data.txt
+```
 ```
 **Kemudian save `CTRL+XY dan Enter`**
 
