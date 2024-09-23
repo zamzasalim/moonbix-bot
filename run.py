@@ -143,7 +143,7 @@ def sleep(seconds):
     print()
 
 def run_account(index, token, proxy=None):
-    log(f"Account {index} |", level="INFO")
+    log(f"Starting Account {index} with Token", level="INFO")
     x = MoonBix(token, proxy)
     x.start()
     log(f"Account {index} Done |", level="SUCCESS")
