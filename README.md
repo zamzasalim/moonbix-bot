@@ -20,11 +20,6 @@ cd moonbix-bot
 nano data.txt
 ```
 ```
-**Kemudian save `CTRL+XY dan Enter`**
-
-### Run Bot
-```
-```
 screen -S moonbix
 ```
 ```
