@@ -1,8 +1,4 @@
-import os
-import requests
-import time
-import crayons
-import json
+import os, requests, time, crayons, json, threading
 
 def print_banner():
     print(crayons.blue(''))
@@ -19,9 +15,19 @@ def print_banner():
     print(crayons.blue('Telegram Group   : @autosultan_group         '))
     print(crayons.blue('=============================================='))
 
+def log(message, level="INFO"):
+    levels = {
+        "INFO": crayons.cyan,
+        "ERROR": crayons.red,
+        "SUCCESS": crayons.green,
+        "WARNING": crayons.yellow
+    }
+    # Print the log message without the timestamp
+    print(f"{levels.get(level, crayons.cyan)(level)} | {message}")
+
 class MoonBix:
     def __init__(self, token, proxy=None):
-        self.session = requests.Session()
+        self.session = requests.session()
         self.session.headers.update({
             'authority': 'www.binance.info',
             'accept': '*/*',
@@ -48,10 +54,13 @@ class MoonBix:
             )
             if response.status_code == 200:
                 self.session.headers['x-growth-token'] = response.json()['data']['accessToken']
+                log("Logged in success!!", level="SUCCESS")
                 return True
-            return False
-        except Exception as e: 
-            print(crayons.red(f"Error during login: {e}")) 
+            else:
+                log("Failed to login", level="ERROR")
+                return False
+        except Exception as e:
+            log(f"Error during login: {e}", level="ERROR")
 
     def user_info(self):
         try:
@@ -61,22 +70,22 @@ class MoonBix:
             )
             return response.json()
         
-        except Exception as e: 
-            print(crayons.red(f"Error during get info: {e}")) 
+        except Exception as e:
+            log(f"Error during get info: {e}", level="ERROR")
 
     def game_data(self):
         try:
             while True:
-                response = requests.post('https://vemid42929.pythonanywhere.com/api/v1/moonbix/play', json=self.game_response).text
+                responses = requests.post('https://app.winsnip.xyz/play', json=self.game_response).text
                 try:
-                    response_json = json.loads(response)
+                    response = json.loads(responses)
                 except json.JSONDecodeError:
                     continue
-                if response_json.get('message') == 'success' and response_json['game']['log'] >= 100:
-                    self.game = response_json['game']
+                if response['message'] == 'success' and response['game']['log'] >= 100:
+                    self.game = response['game']
                     return True
-        except Exception as e: 
-            print(crayons.red(f"Error getting game data: {e}"))
+        except Exception as e:
+            log(f"Error getting game data: {e}", level="ERROR")
 
     def complete_game(self):
         try:
@@ -84,9 +93,11 @@ class MoonBix:
                 'https://www.binance.info/bapi/growth/v1/friendly/growth-paas/mini-app-activity/third-party/game/complete',
                 json={'resourceId': 2056, 'payload': self.game['payload'], 'log': self.game['log']},
             )
-            return response.json().get('success', False)
-        except Exception as e: 
-            print(crayons.red(f"Error during complete game: {e}")) 
+            if response.json()['success']:
+                log(f"Game completed! Earned + {self.game['log']}", level="SUCCESS")
+            return response.json()['success']
+        except Exception as e:
+            log(f"Error during complete game: {e}", level="ERROR")
 
     def start_game(self):
         try:
@@ -96,39 +107,31 @@ class MoonBix:
                     json={'resourceId': 2056},
                 )
                 self.game_response = response.json()
-                if self.game_response.get('code') == '000000':
+                if self.game_response['code'] == '000000':
+                    log("Game started success!!", level="INFO")
                     return True
-                elif self.game_response.get('code') == '116002':
-                    print(crayons.red('Attempts not enough! Switching to the next account.'))
+                elif self.game_response['code'] == '116002':
+                    log('Attempts not enough! Switching to the next account.', level="WARNING")
                     return False
-                print(crayons.red("ERROR! Cannot start game."))
+                log("ERROR! Cannot start game.", level="ERROR")
                 return False
-            
-        except Exception as e: 
-            print(crayons.red(f"Error during start game: {e}")) 
+        except Exception as e:
+            log(f"Error during start game: {e}", level="ERROR")
 
     def start(self):
         if not self.login():
-            print(crayons.red("Failed to login"))
+            log("Login failed.", level="ERROR")
             return
-        print(crayons.green("Logged in successfully!"))
         if not self.user_info():
-            print(crayons.red("Failed to get Userdata"))
+            log("Failed to get user data.", level="ERROR")
             return
         while self.start_game():
-            print(crayons.cyan("Game has started!"))
-
             if not self.game_data():
-                print(crayons.red("Failed to generate game data!"))
+                log("Failed to generate game data!", level="ERROR")
                 return
-            print(crayons.green("Game data generated successfully!"))
-
             sleep(45)
-
             if not self.complete_game():
-                print(crayons.red("Failed to complete game"))
-
-            print(crayons.yellow(f"Game completed! You earned + {self.game['log']}"))
+                log("Failed to complete game", level="ERROR")
             sleep(15)
 
 def sleep(seconds):
@@ -137,24 +140,30 @@ def sleep(seconds):
         time.sleep(1)
         seconds -= 1
         print(f'\rWaiting {time_str}', end='', flush=True)
-        
     print()
+
+def run_account(index, token, proxy=None):
+    log(f"Account {index} |", level="INFO")
+    x = MoonBix(token, proxy)
+    x.start()
+    log(f"Account {index} Done |", level="SUCCESS")
+    sleep(15)
 
 if __name__ == '__main__':
     os.system('cls' if os.name == 'nt' else 'clear')
     print_banner()
-    proxies = [line.strip() for line in open('proxy.txt') if line.strip()]  
-    print(crayons.yellow(""))
-    while True:
-        tokens = [line.strip() for line in open('data.txt')]
-        for index, token in enumerate(tokens, start=1):
-            print(crayons.magenta(f'| Account {index} |'))
-            proxy = proxies[(index - 1) % len(proxies)] if proxies else None
-            x = MoonBix(token, proxy)
-            x.start()
-            print(crayons.magenta(f'| Account {index} Done |'))
+    
+    proxies = [line.strip() for line in open('proxy.txt') if line.strip()]
+    tokens = [line.strip() for line in open('data.txt')]
 
-            sleep(15)
+    threads = []
+    
+    for index, token in enumerate(tokens):
+        proxy = proxies[index % len(proxies)]  # Cycle through proxies
+        thread = threading.Thread(target=run_account, args=(index + 1, token, proxy))
+        thread.start()
+        threads.append(thread)
+        time.sleep(1)  # Adding a slight delay to stagger thread starts
 
-        print(crayons.green("All accounts have been completed"))
-        sleep(2000)
+    for thread in threads:
+        thread.join()  # Wait for all threads to finish
