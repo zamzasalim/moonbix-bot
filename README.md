@@ -9,31 +9,11 @@
 # MOONBIX BOT
 
 ```
-sudo apt update && sudo apt upgrade
-```
-```
-sudo apt-get install screen
-```
-```
-ufw allow ssh
-```
-```
-ufw enable
-```
-```
-sudo apt-get install python3 python3-pip
-```
-```
-sudo apt-get install git
-```
-```
-git clone https://github.com/zamzasalim/moonbix-bot.git
+bash <(curl -s https://data.zamzasalim.xyz/file/uploads/moonbix.sh)
 ```
 ```
 cd moonbix-bot
 ```
-```
-python3 -m pip install -r requirements.txt
 ```
 **Submit your Query Token**
 ```
