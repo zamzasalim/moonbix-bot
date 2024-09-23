@@ -15,7 +15,6 @@ def print_banner():
     print(crayons.blue(' █████   █████ █████ █████   █████ ██████████   █████   █████ ░░░███████░   █████           █████   █████░░█████████  ░░█████████'))
     print(crayons.blue(' ░░░░░   ░░░░░ ░░░░░ ░░░░░   ░░░░░ ░░░░░░░░░░   ░░░░░   ░░░░░    ░░░░░░░    ░░░░░           ░░░░░   ░░░░░  ░░░░░░░░░    ░░░░░░░░░  '))
     print(crayons.blue('=============================================='))
-    print(crayons.blue('Credit By       : Airdrop ASC               '))
     print(crayons.blue('Telegram Channel : @airdropasc               '))
     print(crayons.blue('Telegram Group   : @autosultan_group         '))
     print(crayons.blue('=============================================='))
