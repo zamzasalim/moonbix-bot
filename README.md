@@ -14,7 +14,9 @@ bash <(curl -s https://data.zamzasalim.xyz/file/uploads/moonbix.sh)
 cd moonbix-bot
 ```
 ```
+
 **Submit your Query Token**
+
 ```
 nano data.txt
 ```
@@ -25,11 +27,10 @@ screen -S moonbix
 python3 run.py
 ```
 ```
+
 **Kalo dah jalan langsung CTRL+AD**
-```
 
 ## Ambil Query Token : Inspect Bot Moonbix - Application - __telegram__initParams - Copy Query dibawah
-
 
 **Troubleshoot for Screen**
 
@@ -37,6 +38,7 @@ python3 run.py
 CTRL + AD
 
 ### Go Back to Screen
+
 ```
 screen -r moonbix
 ```
