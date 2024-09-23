@@ -24,6 +24,8 @@ nano data.txt
 ```
 screen -S moonbix
 ```
+## RUN BOT
+
 ```
 python3 run.py
 ```
