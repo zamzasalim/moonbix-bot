@@ -30,12 +30,12 @@ python3 run.py
 
 **Kalo dah jalan langsung CTRL+AD**
 
-**Troubleshoot for Screen**
+## Troubleshoot for Screen
 
-### Close Screen 
+**Close Screen**
 CTRL + AD
 
-### Go Back to Screen
+**Go Back to Screen**
 
 ```
 screen -r moonbix
