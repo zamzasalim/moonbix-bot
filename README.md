@@ -30,6 +30,10 @@ python3 run.py
 
 **Kalo dah jalan langsung CTRL+AD**
 
+## Ambil Query Token :
+Inspect Bot Moonbix - Application - __telegram__initParams - Copy Query dibawah
+
+
 ## Troubleshoot for Screen
 
 **Close Screen**
